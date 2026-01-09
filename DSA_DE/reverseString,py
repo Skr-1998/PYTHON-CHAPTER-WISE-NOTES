@@ -1,0 +1,31 @@
+class Solution:
+    def reverseWords(s):
+      a = []
+      for i in s.split(' '):
+          if i == '':
+             continue
+          else:
+            a.append(i)
+      print(a)      
+      return  ' '.join(a[::-1])
+    
+    def reverseWords2(s):
+       word = ''
+       word_output_string = ''
+
+       for i in range(0,len(s)):
+          if (s[i] ==' ' and word != ''):
+           word_output_string = word +' '+ word_output_string
+           word =''
+
+          if (s[i] != ' '):
+             word = word + s[i]
+
+       if (word != ''):
+           word_output_string = word +' '+ word_output_string
+       return word_output_string[0:len(word_output_string)-1]
+ 
+
+    s = 'the sky is blue' 
+    print(reverseWords2(s))  
+      

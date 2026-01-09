@@ -1,0 +1,56 @@
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = [None] * size
+    
+    def hash_function(self, key):
+        return key % self.size
+    
+    def insert(self, key):
+        index = self.hash_function(key)
+        while self.table[index] is not None:  # Linear probing for collisions
+            index = (index + 1) % self.size
+        self.table[index] = key
+    
+    def search(self, key):
+        index = self.hash_function(key)
+        while self.table[index] is not None:
+            if self.table[index] == key:
+                return index
+            index = (index + 1) % self.size
+        return None
+    
+    def pop(self, key):
+        index = self.search(key)
+        if index is not None:
+            self.table[index] = None
+            print(f"{key} popped.")
+        else:
+            print(f"{key} not found.")
+    
+    def display(self):
+        print("Hash Table:", self.table)
+
+
+# Example usage
+hash_table = HashTable(10)
+
+# Insert numbers
+for num in [23, 42, 56, 74, 92, 15, 36]:
+    hash_table.insert(num)
+
+# Display the table
+hash_table.display()
+
+# Search for a number
+num_to_search = 42
+if hash_table.search(num_to_search) is not None:
+    print(f"Found {num_to_search}.")
+else:
+    print(f"{num_to_search} not found.")
+
+# Pop a number
+hash_table.pop(56)
+
+# Display again
+hash_table.display()
